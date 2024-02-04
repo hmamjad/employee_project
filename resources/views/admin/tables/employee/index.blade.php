@@ -57,6 +57,11 @@
                                                 <td>{{ $row->emp_name }}</td>
                                                 <td>{{ $row->emp_phone }}</td>
                                                 <td>{{ $row->emp_email }}</td>
+                                                {{-- Eloquient Model and relationship with model  --}}
+                                                {{-- <td>{{ $row->location->location_name }}</td>
+                                                <td>{{ $row->department->dep_name }}</td>
+                                                <td>{{ $row->designation->designation_name }}</td> --}}
+
                                                 <td>{{ $row->emp_location }}</td>
                                                 <td>{{ $row->emp_dep }}</td>
                                                 <td>{{ $row->emp_desig }}</td>
@@ -65,8 +70,8 @@
                                                 <td>{{ $row->emp_salary }}</td>
                                                 <td>{{ $row->status }}</td>
 
-                                                {{-- Eloquient Model and relationship with model  --}}
-                                                {{-- <td>{{ $row->category->category_name }}</td>  --}}
+
+
                                                 <td>
                                                     <a href="#" class="btn btn-info btn-sm edit"
                                                         data-id='{{ $row->id }}' data-toggle="modal"
@@ -109,84 +114,107 @@
                     @csrf
                     <div class="modal-body">
 
-                        {{-- sub category   --}}
-                        <div class="form-group">
-                            <label for="subcategory_name">Employee Name</label>
-                            <input type="text" class="form-control" id="emp_name" name="emp_name" required="">
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                {{-- Employee  --}}
+                                <div class="form-group">
+                                    <label for="subcategory_name">Employee Name</label>
+                                    <input type="text" class="form-control" id="emp_name" name="emp_name"
+                                        required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emp_phone">Employee Phone</label>
+                                    <input type="text" class="form-control" id="emp_phone" name="emp_phone"
+                                        required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emp_email">Employee Email</label>
+                                    <input type="text" class="form-control" id="emp_email" name="emp_email"
+                                        required="">
+                                </div>
+
+
+
+                                {{-- Location select --}}
+                                <div class="form-group">
+                                    <label for="emp_location">Employee Location</label>
+                                    <select class="form-control" name="emp_location" id="emp_location">
+
+                                        @foreach ($location as $row)
+                                            <option value="{{ $row->location_name }}">{{ $row->location_name }}</option>
+                                            {{-- value will be {{ $row->id }} --}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                  {{-- Department select --}}
+                                  <div class="form-group">
+                                    <label for="emp_dep">Employee Department</label>
+                                    <select class="form-control" name="emp_dep" id="emp_dep">
+
+                                        @foreach ($department as $row)
+                                            <option value="{{ $row->dep_name }}">{{ $row->dep_name }}</option>
+                                            {{-- value will be {{ $row->id }} --}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-lg-6">
+                              
+
+                                {{-- Designation select --}}
+                                <div class="form-group">
+                                    <label for="emp_desig">Employee Designation</label>
+                                    <select class="form-control" name="emp_desig" id="emp_desig">
+
+                                        @foreach ($designation as $row)
+                                            <option value="{{ $row->designation_name }}">{{ $row->designation_name }}
+                                            </option>
+                                            {{-- value will be {{ $row->id }} --}}
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="emp_date">Join Date</label>
+                                    <input type="date" class="form-control" id="emp_date" name="emp_date"
+                                        required="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emp_salary">Salary</label>
+                                    <input type="text" class="form-control" id="emp_salary" name="emp_salary"
+                                        required="">
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" name="status">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted">If yes it will be show on your home
+                                        page</small>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="emp_phone">Employee Phone</label>
-                            <input type="text" class="form-control" id="emp_phone" name="emp_phone" required="">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="emp_email">Employee Email</label>
-                            <input type="text" class="form-control" id="emp_email" name="emp_email" required="">
-                        </div>
-
-                      
-
-                        {{-- Location select --}}
-                        <div class="form-group">
-                            <label for="emp_location">Employee Location</label>
-                            <select class="form-control" name="emp_location" id="emp_location">
-
-                                @foreach ($location as $row)
-                                    <option value="{{ $row->id }}">{{ $row->location_name }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
-                         {{-- Department select --}}
-                         <div class="form-group">
-                            <label for="emp_dep">Employee Department</label>
-                            <select class="form-control" name="emp_dep" id="emp_dep">
-
-                                @foreach ($department as $row)
-                                    <option value="{{ $row->id }}">{{ $row->emp_dep }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
 
 
-                         {{-- Designation select --}}
-                         <div class="form-group">
-                            <label for="emp_desig">Employee Designation</label>
-                            <select class="form-control" name="emp_desig" id="emp_desig">
-
-                                @foreach ($designation as $row)
-                                    <option value="{{ $row->id }}">{{ $row->emp_desig }}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-
-
-
-                         <div class="form-group">
-                            <label for="emp_date">Join Date</label>
-                            <input type="date" class="form-control" id="emp_date" name="emp_date" required="">
-                        </div>
-
-                         <div class="form-group">
-                            <label for="emp_salary">Salary</label>
-                            <input type="text" class="form-control" id="emp_salary" name="emp_salary" required="">
-                        </div>
-
-                        
-
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" name="status">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                            <small id="emailHelp" class="form-text text-muted">If yes it will be show on your home
-                                page</small>
-                        </div>
 
                     </div>
                     <div class="modal-footer">
